@@ -835,7 +835,9 @@
                 
                 // Update money based on result
                 if (result.multiplier > 0) {
-                    const winAmount = (betAmount || parseInt(magicalBetAmountInput.value)) * result.multiplier;
+                    const winAmount = Math.floor(
+    (betAmount || parseInt(magicalBetAmountInput.value)) * result.multiplier
+);
                     gameState.money += winAmount;
                     gameMessage.textContent = `You won $${winAmount}! ${result.message}`;
                     gameMessage.className = 'game-message win';
@@ -1016,8 +1018,8 @@
                 // Check for two of a kind
                 if (symbols[0] === symbols[1] || symbols[1] === symbols[2] || symbols[0] === symbols[2]) {
                     return {
-                        multiplier: 1,
-                        message: "Two of a kind - you get your money back!"
+                        multiplier: 1.5,
+                        message: "Two of a kind - small win!"
                     };
                 }
             } else if (isMagical) {
@@ -1040,12 +1042,12 @@
                     };
                 } else if (goldCoinCount === 2) {
                     return {
-                        multiplier: 20,
+                        multiplier: 15,
                         message: "Two gold coins! 20x return!"
                     };
                 } else if (goldCoinCount === 3) {
                     return {
-                        multiplier: 250,
+                        multiplier: 200,
                         message: "Three gold coins! 250x return!"
                     };
                 } else if (goldCoinCount === 4) {
